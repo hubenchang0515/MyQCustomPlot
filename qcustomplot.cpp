@@ -23,7 +23,7 @@
 **          Version: 2.1.1                                                **
 ****************************************************************************/
 
-#include "qcustomplot.h"
+#include <widgets/qcustomplot.h>
 
 
 /* including file 'src/vector2d.cpp'       */
@@ -909,11 +909,9 @@ void QCPPaintBufferGlFbo::draw(QCPPainter *painter) const
     return;
   }
 
-  if (QOpenGLContext::currentContext() != mGlContext.data())
-  {
+  if (QOpenGLContext::currentContext() != mGlContext.data()) {
     mGlContext.data()->makeCurrent(mGlContext.data()->surface());
   }
-
   painter->drawImage(0, 0, mGlFrameBuffer->toImage());
 }
 
@@ -26093,6 +26091,30 @@ void QCPColorMapData::setData(double key, double value, double z)
       mDataBounds.upper = z;
      mDataModified = true;
   }
+}
+
+void QCPColorMapData::setMinMax(double min, double max)
+{
+  mDataBounds.lower = min;
+  mDataBounds.upper = max;
+  mDataModified = true;
+}
+
+void QCPColorMapData::setData(const double* data, double min, double max)
+{
+  std::copy(data, data + mKeySize * mValueSize, mData);
+  mDataBounds.lower = min;
+  mDataBounds.upper = max;
+  mDataModified = true;
+}
+
+void QCPColorMapData::setData(const double* data, double min, double max, size_t offset)
+{
+  if (offset < mKeySize * mValueSize) std::copy(data + offset, data + mKeySize * mValueSize, mData);
+  if (offset  > 0) std::copy(data, data + offset, mData + mKeySize * mValueSize - offset);
+  mDataBounds.lower = min;
+  mDataBounds.upper = max;
+  mDataModified = true;
 }
 
 /*!

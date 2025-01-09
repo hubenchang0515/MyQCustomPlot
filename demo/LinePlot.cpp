@@ -20,7 +20,9 @@ LinePlot::LinePlot(QWidget* parent) noexcept:
     this->xAxis->setRange(-1, 1);
     this->yAxis->setRange(0, 1);
     this->replot();
-    }
+
+    qDebug() << "Use OpenGL:" << openGl();
+}
 
 LinePlot::~LinePlot() noexcept
 {

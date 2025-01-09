@@ -22,7 +22,7 @@ SET(CMAKE_AUTOMOC ON)
 SET(CMAKE_AUTORCC ON)
 SET(CXX_STANDARD 11)
 
-aux_source_directory(. DEMO_SOURCE)
+aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR} DEMO_SOURCE)
 
 if (Qt6_FOUND)
   qt_add_executable(${PROJECT_NAME} ${DEMO_SOURCE} )

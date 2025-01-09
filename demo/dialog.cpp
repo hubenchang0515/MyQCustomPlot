@@ -9,7 +9,6 @@ Dialog::Dialog(QWidget* parent) noexcept:
     auto layout = new QVBoxLayout;
     layout->addWidget(plot);
     setLayout(layout);
-
 }
 
 Dialog::~Dialog() noexcept
